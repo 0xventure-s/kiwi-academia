@@ -1,0 +1,296 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String         @id
+  name          String
+  email         String         @unique
+  emailVerified Boolean        @default(false)
+  image         String?
+  role          String         @default("user")
+  headline      String?
+  bio           String?        @db.Text
+  location      String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  profileLinks  ProfileLink[]
+  courseReviews CourseReview[]
+}
+
+model ProfileLink {
+  id        String   @id @default(uuid())
+  label     String
+  url       String   @db.Text
+  position  Int      @default(0)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, url])
+  @@index([userId])
+  @@index([userId, position])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @db.Text
+  refreshToken          String?   @db.Text
+  idToken               String?   @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?   @db.Text
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String   @db.Text
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+}
+
+model Course {
+  id                 String   @id @default(uuid())
+  userId             String
+  title              String   @db.Text
+  subtitle           String?  @db.Text
+  description        String?  @db.Text
+  imageUrl           String?  @db.Text
+  price              Decimal? @db.Decimal(12, 2)
+  level              String?
+  estimatedMinutes   Int?
+  outcomes           String[] @default([])
+  targetAudience     String[] @default([])
+  notForAudience     String[] @default([])
+  prerequisites      String[] @default([])
+  projectTitle       String?  @db.Text
+  projectDescription String?  @db.Text
+  projectImageUrl    String?  @db.Text
+  isPublished        Boolean  @default(false)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  chapters    Chapter[]
+  attachments Attachment[]
+  purchases   Purchase[]
+  payments    Payment[]
+  faqs        CourseFaq[]
+  reviews     CourseReview[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([isPublished, createdAt])
+  @@index([isPublished, updatedAt])
+  @@index([isPublished, categoryId, createdAt])
+}
+
+model Category {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  courses Course[]
+}
+
+model Attachment {
+  id   String @id @default(uuid())
+  name String
+  url  String @db.Text
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model Chapter {
+  id              String  @id @default(uuid())
+  title           String
+  description     String? @db.Text
+  videoUrl        String? @db.Text
+  moduleTitle     String?
+  durationMinutes Int?
+  position        Int
+  isPublished     Boolean @default(false)
+  isFree          Boolean @default(false)
+  isTrailer       Boolean @default(false)
+
+  muxData MuxData?
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  userProgress UserProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+  @@index([courseId, isPublished, position])
+}
+
+model CourseFaq {
+  id       String @id @default(uuid())
+  question String @db.Text
+  answer   String @db.Text
+  position Int    @default(0)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model CourseReview {
+  id      String @id @default(uuid())
+  rating  Int
+  comment String @db.Text
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+  @@index([courseId, updatedAt])
+}
+
+model MuxData {
+  id         String  @id @default(uuid())
+  assetId    String
+  playbackId String?
+
+  chapterId String  @unique
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+}
+
+model UserProgress {
+  id     String @id @default(uuid())
+  userId String
+
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  isCompleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, chapterId])
+  @@index([chapterId])
+  @@index([userId, isCompleted])
+}
+
+model Purchase {
+  id     String @id @default(uuid())
+  userId String
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  paymentId String?  @unique
+  payment   Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+  @@index([userId, createdAt])
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  REFUNDED
+}
+
+model Payment {
+  id                String        @id @default(uuid())
+  providerPaymentId String?       @unique
+  preferenceId      String?
+  externalReference String        @unique
+  status            PaymentStatus @default(PENDING)
+  providerStatus    String?
+  amount            Decimal       @db.Decimal(12, 2)
+  currency          String        @default("ARS")
+  payerEmail        String?
+  userId            String
+
+  courseId String
+  course   Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  purchase Purchase?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([courseId])
+  @@index([status])
+  @@index([status, courseId])
+}
+
+model MercadoPagoConnection {
+  id                    String    @id @default("primary")
+  mercadoPagoUserId     String    @unique
+  encryptedAccessToken  String    @db.Text
+  encryptedRefreshToken String?   @db.Text
+  publicKey             String?   @db.Text
+  expiresAt             DateTime?
+  liveMode              Boolean   @default(false)
+  scope                 String?
+  connectedByUserId     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
