@@ -272,18 +272,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="contacto" className="scroll-mt-8 bg-accent">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 py-20 text-center sm:px-8 lg:px-12 lg:py-28">
-          <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-foreground/65">
-            Hablemos
+      <section
+        id="contacto"
+        className="relative scroll-mt-8 overflow-hidden border-b border-foreground/10 bg-[#e8ecdf] text-foreground"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_12%,rgba(255,255,255,0.78),transparent_42%)]" />
+        <div className="relative mx-auto flex max-w-[1440px] flex-col items-center px-5 py-20 text-center sm:px-8 lg:px-12 lg:py-28">
+          <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-foreground/55">
+            Cuando quieras
           </p>
           <h2 className="mt-5 max-w-5xl font-display text-6xl leading-[0.86] tracking-[-0.055em] sm:text-8xl">
-            El próximo paso empieza con una conversación.
+            Conversemos sobre lo que necesita tu negocio.
           </h2>
-          <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-foreground/70">
-            Contanos qué querés mejorar y conversemos sobre una solución concreta para tu operación.
+          <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-foreground/65">
+            Contanos qué querés mejorar. Te escuchamos y pensamos juntos el próximo paso.
           </p>
-          <WhatsAppButton className="mt-10 min-h-20 w-full max-w-3xl px-8 text-base sm:text-lg" />
+          <WhatsAppButton className="mt-10 min-h-20 w-full max-w-3xl bg-foreground px-8 text-base text-background shadow-[0_16px_40px_rgba(35,29,20,0.14)] hover:bg-[#34302c] sm:text-lg" />
         </div>
       </section>
 
