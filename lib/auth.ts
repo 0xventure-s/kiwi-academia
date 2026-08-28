@@ -37,7 +37,7 @@ const trustedOrigins = Array.from(
 const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
 
 export const auth = betterAuth({
-  appName: "Kiwi Academia",
+  appName: "Kiwi Hub",
   baseURL: appUrl ?? undefined,
   secret: process.env.BETTER_AUTH_SECRET,
   database: prismaAdapter(db, {

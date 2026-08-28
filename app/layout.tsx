@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
   title: {
-    default: `${siteConfig.name} | Cursos de IA para construir productos`,
+    default: `${siteConfig.name} | Transformación digital para empresas`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: siteConfig.logo,
         width: 1254,
         height: 1254,
-        alt: "Kiwi Academia",
+        alt: "Kiwi Hub",
       },
     ],
   },

@@ -14,7 +14,7 @@ export const WhatsAppButton = ({
   const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "");
   const message =
     process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE ||
-    "Hola. Quiero consultar por los cursos de Kiwi Academia.";
+    "Hola. Quiero conversar sobre una solución para mi empresa.";
 
   if (!number) {
     return null;

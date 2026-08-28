@@ -6,6 +6,14 @@ interface PasswordResetEmailInput {
   url: string;
 }
 
+interface ContactInquiryEmailInput {
+  name: string;
+  company?: string;
+  email: string;
+  interest: "turnos" | "comandas" | "agentes-ia" | "otro";
+  message: string;
+}
+
 const escapeHtml = (value: string) =>
   value.replace(/[&<>'"]/g, (character) => {
     const entities: Record<string, string> = {
@@ -40,7 +48,7 @@ export const sendPasswordResetEmail = async ({
     body: JSON.stringify({
       from,
       to: [email],
-      subject: "Recuperá tu acceso a Kiwi Academia",
+      subject: "Recuperá tu acceso a Kiwi Hub",
       html: `
         <div style="font-family:Arial,sans-serif;color:#1d1a18;line-height:1.6">
           <h1 style="font-size:24px">Elegí una nueva contraseña</h1>
@@ -55,5 +63,64 @@ export const sendPasswordResetEmail = async ({
 
   if (!response.ok) {
     throw new Error("No pudimos enviar el correo de recuperación");
+  }
+};
+
+const interestLabels: Record<ContactInquiryEmailInput["interest"], string> = {
+  turnos: "Sistema de turnos",
+  comandas: "Sistema de comandas",
+  "agentes-ia": "Agentes de inteligencia artificial",
+  otro: "Otro desafío",
+};
+
+export const sendContactInquiryEmail = async ({
+  name,
+  company,
+  email,
+  interest,
+  message,
+}: ContactInquiryEmailInput) => {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_EMAIL_FROM || process.env.AUTH_EMAIL_FROM;
+  const to = process.env.CONTACT_EMAIL || process.env.ADMIN_EMAIL;
+
+  if (!apiKey || !from || !to) {
+    throw new Error("Falta configurar el correo de contacto");
+  }
+
+  const safeName = escapeHtml(name);
+  const safeCompany = company ? escapeHtml(company) : "No indicada";
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message).replace(/\n/g, "<br />");
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      reply_to: email,
+      subject: `Nueva consulta: ${interestLabels[interest]}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;color:#1d1a18;line-height:1.6">
+          <h1 style="font-size:24px">Nueva consulta desde Kiwi Hub</h1>
+          <p><strong>Nombre:</strong> ${safeName}</p>
+          <p><strong>Empresa:</strong> ${safeCompany}</p>
+          <p><strong>Correo:</strong> ${safeEmail}</p>
+          <p><strong>Interés:</strong> ${interestLabels[interest]}</p>
+          <div style="margin-top:24px;padding:20px;border-radius:16px;background:#f5f1e8">
+            ${safeMessage}
+          </div>
+        </div>
+      `,
+    }),
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("No pudimos enviar la consulta");
   }
 };

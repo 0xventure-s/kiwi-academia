@@ -12,7 +12,7 @@ export default function MarketingLayout({
 }) {
   return (
     <MarketingFrame
-      brand={<SiteLogo href="/cursos" />}
+      brand={<SiteLogo href="/" />}
       navbar={<Navbar />}
       sidebar={<Sidebar />}
       floatingAction={

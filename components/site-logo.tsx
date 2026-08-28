@@ -18,7 +18,7 @@ export const SiteLogo = ({
     <Link
       href={href}
       className={cn("inline-flex items-center gap-3", className)}
-      aria-label="Kiwi Academia"
+      aria-label="Kiwi Hub"
     >
       <span className="relative block h-12 w-12 shrink-0">
         <Image
@@ -33,10 +33,10 @@ export const SiteLogo = ({
       {!compact && (
         <span className="leading-none">
           <span className="block whitespace-nowrap text-base font-extrabold tracking-[-0.03em]">
-            Kiwi Academia
+            Kiwi Hub
           </span>
           <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-            IA · Producto
+            Sistemas · Inteligencia artificial
           </span>
         </span>
       )}

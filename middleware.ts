@@ -11,6 +11,7 @@ const publicPathPatterns = [
   /^\/recuperar-acceso$/,
   /^\/restablecer-clave$/,
   /^\/api\/auth(?:\/.*)?$/,
+  /^\/api\/contacto$/,
   /^\/api\/webhooks\/mercadopago$/,
 ];
 
