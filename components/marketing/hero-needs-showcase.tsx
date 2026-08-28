@@ -4,29 +4,21 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const HERO_NEEDS: Array<{
-  word: string;
-  description: string;
-}> = [
+const HERO_NEEDS = [
   {
     word: "Orden",
-    description: "Procesos simples y prioridades visibles.",
   },
   {
     word: "Control",
-    description: "Decisiones con información actualizada.",
   },
   {
     word: "Claridad",
-    description: "Lo importante, siempre a la vista.",
   },
   {
     word: "Trazabilidad",
-    description: "Cada paso conectado de principio a fin.",
   },
   {
     word: "IA",
-    description: "Automatización con criterio y supervisión.",
   },
 ];
 
@@ -74,11 +66,8 @@ export const HeroNeedsShowcase = () => {
             </span>
           </h1>
 
-          <p
-            key={activeNeed.description}
-            className="hero-need-copy mt-8 max-w-2xl text-lg font-semibold leading-8 text-muted-foreground sm:text-xl"
-          >
-            {activeNeed.description}
+          <p className="landing-reveal landing-delay-2 mt-8 max-w-2xl text-lg font-semibold leading-8 text-muted-foreground sm:text-xl">
+            Menos caos. Mejores decisiones. Una operación que avanza.
           </p>
 
           <div className="landing-reveal landing-delay-3 mt-10 flex w-full max-w-md flex-col justify-center gap-3 sm:w-auto sm:max-w-none sm:flex-row">
