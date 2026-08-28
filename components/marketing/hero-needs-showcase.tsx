@@ -67,7 +67,7 @@ export const HeroNeedsShowcase = () => {
           </h1>
 
           <p className="landing-reveal landing-delay-2 mt-8 max-w-2xl text-lg font-semibold leading-8 text-muted-foreground sm:text-xl">
-            Menos caos. Mejores decisiones. Una operación que avanza.
+            Te ayudamos en la transformación digital de tu empresa o emprendimiento.
           </p>
 
           <div className="landing-reveal landing-delay-3 mt-10 flex w-full max-w-md flex-col justify-center gap-3 sm:w-auto sm:max-w-none sm:flex-row">

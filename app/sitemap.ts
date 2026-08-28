@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     { url: siteUrl, lastModified: new Date(), priority: 1 },
     { url: `${siteUrl}/cursos`, lastModified: new Date(), priority: 0.9 },
+    { url: `${siteUrl}/terminos`, lastModified: new Date(), priority: 0.4 },
     ...courses.map((course) => ({
       url: `${siteUrl}/cursos/${course.id}`,
       lastModified: course.updatedAt,

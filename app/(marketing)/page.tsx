@@ -6,11 +6,9 @@ import {
   CalendarDays,
   Check,
   ChefHat,
-  MessageCircle,
 } from "lucide-react";
 import Link from "next/link";
 
-import { ContactForm } from "@/components/marketing/contact-form";
 import { HeroNeedsShowcase } from "@/components/marketing/hero-needs-showcase";
 import {
   ProductMockup,
@@ -69,8 +67,7 @@ const solutions: Array<{
 const processSteps = [
   {
     number: "01",
-    stage: "Diagnóstico",
-    title: "Leemos la operación.",
+    title: "Diagnóstico.",
     description:
       "Relevamos cómo circulan las tareas, la información y las decisiones. El foco queda puesto en el problema real.",
     result: "Problema definido",
@@ -78,8 +75,7 @@ const processSteps = [
   },
   {
     number: "02",
-    stage: "Diseño",
-    title: "Ordenamos el flujo.",
+    title: "Diseño.",
     description:
       "Definimos pasos, responsables y estados antes de elegir la tecnología o la automatización necesaria.",
     result: "Solución clara",
@@ -87,8 +83,7 @@ const processSteps = [
   },
   {
     number: "03",
-    stage: "Implementación",
-    title: "Lo ponemos en marcha.",
+    title: "Implementación.",
     description:
       "Implementamos el sistema, probamos el recorrido completo y ajustamos lo necesario para el uso diario.",
     result: "Flujo operativo",
@@ -97,10 +92,6 @@ const processSteps = [
 ];
 
 export default function HomePage() {
-  const hasWhatsApp = Boolean(
-    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, ""),
-  );
-
   return (
     <main id="top" className="overflow-hidden">
       <header className="relative z-50 border-b border-foreground/10 bg-background/90 backdrop-blur-xl">
@@ -136,10 +127,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
             <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-secondary">
-                Tres soluciones, una misma lógica
-              </p>
-              <h2 className="mt-5 font-display text-5xl leading-[0.92] tracking-[-0.045em] sm:text-7xl">
+              <h2 className="font-display text-5xl leading-[0.92] tracking-[-0.045em] sm:text-7xl">
                 Tecnología que se integra al trabajo real.
               </h2>
             </div>
@@ -234,7 +222,7 @@ export default function HomePage() {
                 Punto de llegada
               </p>
               <p className="mt-4 max-w-lg text-2xl font-extrabold leading-tight tracking-[-0.035em] sm:text-3xl">
-                Un flujo claro, con responsables, estados visibles y acciones automatizadas donde aportan valor.
+                Una operación conectada, medible y preparada para avanzar con decisiones claras y menos dependencia de tareas manuales.
               </p>
               <div className="mt-7 flex flex-wrap gap-2 text-[11px] font-extrabold">
                 {["Menos pasos manuales", "Información ordenada", "Procesos más claros"].map(
@@ -263,9 +251,6 @@ export default function HomePage() {
                     <span className={`relative z-10 flex h-[70px] w-[70px] items-center justify-center rounded-full border border-foreground/10 text-sm font-black ${item.tone}`}>
                       {item.number}
                     </span>
-                    <span className="text-[10px] font-black uppercase tracking-[0.16em] text-muted-foreground">
-                      {item.stage}
-                    </span>
                   </div>
                   <h3 className="mt-10 text-3xl font-extrabold leading-[1.05] tracking-[-0.04em]">
                     {item.title}
@@ -288,36 +273,17 @@ export default function HomePage() {
       </section>
 
       <section id="contacto" className="scroll-mt-8 bg-accent">
-        <div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:px-12 lg:py-28">
-          <div className="flex flex-col">
-            <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-foreground/65">
-              Hablemos
-            </p>
-            <h2 className="mt-5 max-w-2xl font-display text-6xl leading-[0.86] tracking-[-0.055em] sm:text-8xl">
-              Contanos qué querés ordenar.
-            </h2>
-            <p className="mt-7 max-w-lg text-lg font-semibold leading-8 text-foreground/70">
-              Compartí el desafío, el proceso o la idea. Te respondemos con una primera orientación clara.
-            </p>
-            <div className="mt-10 flex items-center gap-3 text-sm font-extrabold lg:mt-auto">
-              <MessageCircle className="h-5 w-5" />
-              Una conversación, sin compromiso.
-            </div>
-          </div>
-
-          <div className="rounded-[34px] border border-foreground/15 bg-background p-5 shadow-[0_30px_80px_rgba(40,23,15,0.16)] sm:p-8 lg:p-10">
-            <ContactForm />
-            {hasWhatsApp && (
-              <>
-                <div className="my-7 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.16em] text-muted-foreground">
-                  <span className="h-px flex-1 bg-foreground/10" />
-                  o por WhatsApp
-                  <span className="h-px flex-1 bg-foreground/10" />
-                </div>
-                <WhatsAppButton className="h-14 w-full" />
-              </>
-            )}
-          </div>
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 py-20 text-center sm:px-8 lg:px-12 lg:py-28">
+          <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-foreground/65">
+            Hablemos
+          </p>
+          <h2 className="mt-5 max-w-5xl font-display text-6xl leading-[0.86] tracking-[-0.055em] sm:text-8xl">
+            El próximo paso empieza con una conversación.
+          </h2>
+          <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-foreground/70">
+            Contanos qué querés mejorar y conversemos sobre una solución concreta para tu operación.
+          </p>
+          <WhatsAppButton className="mt-10 min-h-20 w-full max-w-3xl px-8 text-base sm:text-lg" />
         </div>
       </section>
 
@@ -329,13 +295,21 @@ export default function HomePage() {
               Sistemas digitales para empresas que quieren trabajar con más claridad.
             </p>
           </div>
-          <Link
-            href="#top"
-            className="inline-flex items-center gap-2 text-sm font-extrabold text-background/70 transition hover:text-secondary"
-          >
-            Volver arriba
-            <ArrowRight className="h-4 w-4 -rotate-90" />
-          </Link>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link
+              href="/terminos"
+              className="text-sm font-extrabold text-background/70 transition hover:text-secondary"
+            >
+              Términos y condiciones
+            </Link>
+            <Link
+              href="#top"
+              className="inline-flex items-center gap-2 text-sm font-extrabold text-background/70 transition hover:text-secondary"
+            >
+              Volver arriba
+              <ArrowRight className="h-4 w-4 -rotate-90" />
+            </Link>
+          </div>
         </div>
       </footer>
     </main>

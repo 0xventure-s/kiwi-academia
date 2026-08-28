@@ -21,11 +21,12 @@ export const MarketingFrame = ({
   sidebar,
 }: MarketingFrameProps) => {
   const pathname = usePathname();
-  const isLandingRoute = pathname === "/";
+  const isStandaloneMarketingRoute =
+    pathname === "/" || pathname === "/terminos";
   const isCourseRoute =
     pathname === "/cursos" || pathname.startsWith("/cursos/");
 
-  if (isLandingRoute) {
+  if (isStandaloneMarketingRoute) {
     return <div className="min-h-full bg-background">{children}</div>;
   }
 
