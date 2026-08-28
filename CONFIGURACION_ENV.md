@@ -9,7 +9,7 @@ NEXT_PUBLIC_APP_URL=""
 NEXT_PUBLIC_SITE_NAME="Kiwi Hub"
 NEXT_PUBLIC_SITE_DESCRIPTION="Sistemas e inteligencia artificial para pymes y empresas."
 NEXT_PUBLIC_WHATSAPP_NUMBER=""
-NEXT_PUBLIC_WHATSAPP_MESSAGE="Hola. Quiero conversar sobre una solución para mi empresa."
+NEXT_PUBLIC_WHATSAPP_MESSAGE="Hola, me gustaría contarles sobre mi negocio y ver cómo podrían ayudarme."
 ```
 
 - `NEXT_PUBLIC_APP_URL`: dominio canónico, sin barra final.
