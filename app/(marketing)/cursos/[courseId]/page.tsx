@@ -28,6 +28,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button";
 import { db } from "@/lib/db";
 import { formatPrice, toPriceNumber } from "@/lib/format";
 import { getCurrentUserId } from "@/lib/session";
+import { absoluteUrl, siteConfig } from "@/lib/site-config";
 
 import { CourseReviewForm } from "./_components/course-review-form";
 import { CourseTrailer } from "./_components/course-trailer";
@@ -260,27 +261,38 @@ export async function generateMetadata({
   const course = await getPublicCourse(courseId);
 
   if (!course) {
-    return { title: "Curso no encontrado" };
+    return {
+      title: "Curso no encontrado",
+      robots: { index: false, follow: false },
+    };
   }
 
   const description =
     course.subtitle ||
     (course.description ? stripHtml(course.description).slice(0, 155) : undefined);
+  const coursePath = `/cursos/${course.id}`;
+  const socialImage = course.imageUrl || siteConfig.ogImage;
 
   return {
     title: course.title,
     description,
+    alternates: {
+      canonical: coursePath,
+    },
     openGraph: {
-      title: course.title,
+      title: `${course.title} | ${siteConfig.name}`,
       description,
+      url: coursePath,
+      siteName: siteConfig.name,
+      locale: siteConfig.locale,
       type: "website",
-      images: course.imageUrl ? [{ url: course.imageUrl, alt: course.title }] : undefined,
+      images: [{ url: socialImage, alt: course.title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: course.title,
+      title: `${course.title} | ${siteConfig.name}`,
       description,
-      images: course.imageUrl ? [course.imageUrl] : undefined,
+      images: [{ url: socialImage, alt: course.title }],
     },
   };
 }
@@ -365,17 +377,25 @@ export default async function PublicCoursePage({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Course",
+    "@id": `${absoluteUrl(`/cursos/${course.id}`)}#course`,
+    url: absoluteUrl(`/cursos/${course.id}`),
     name: course.title,
     description:
       course.subtitle ||
       (course.description ? stripHtml(course.description).slice(0, 300) : undefined),
+    image: course.imageUrl || absoluteUrl(siteConfig.ogImage),
+    inLanguage: siteConfig.language,
+    courseMode: "online",
     provider: {
       "@type": "Organization",
-      name: "Pantera",
+      "@id": `${siteConfig.url}/#organization`,
+      name: siteConfig.name,
+      url: siteConfig.url,
     },
     offers: price
       ? {
           "@type": "Offer",
+          url: absoluteUrl(`/cursos/${course.id}`),
           price,
           priceCurrency: "ARS",
           availability: "https://schema.org/InStock",

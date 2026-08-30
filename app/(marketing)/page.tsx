@@ -16,11 +16,40 @@ import {
 } from "@/components/marketing/product-mockup";
 import { SiteLogo } from "@/components/site-logo";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { absoluteUrl, siteConfig } from "@/lib/site-config";
+
+const homeTitle = "Transformación digital para empresas";
+const homeDescription =
+  "Transformación digital para pymes y empresas con sistemas de turnos, comandas y agentes de inteligencia artificial.";
 
 export const metadata: Metadata = {
-  title: "Transformación digital para empresas",
-  description:
-    "Transformación digital para pymes y empresas con sistemas de turnos, comandas y agentes de inteligencia artificial.",
+  title: homeTitle,
+  description: homeDescription,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: `${homeTitle} | ${siteConfig.name}`,
+    description: homeDescription,
+    url: "/",
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.ogImageAlt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${homeTitle} | ${siteConfig.name}`,
+    description: homeDescription,
+    images: [{ url: siteConfig.ogImage, alt: siteConfig.ogImageAlt }],
+  },
 };
 
 const solutions: Array<{
@@ -91,9 +120,87 @@ const processSteps = [
   },
 ];
 
+const organizationId = `${siteConfig.url}/#organization`;
+const websiteId = `${siteConfig.url}/#website`;
+const webpageId = `${siteConfig.url}/#webpage`;
+
+const homeStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description: homeDescription,
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl(siteConfig.logo),
+        width: 1254,
+        height: 1254,
+      },
+      image: absoluteUrl(siteConfig.ogImage),
+      ...(siteConfig.contactPhone
+        ? {
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: siteConfig.contactPhone,
+              contactType: "sales",
+              availableLanguage: "es",
+            },
+          }
+        : {}),
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Soluciones digitales",
+        itemListElement: siteConfig.services.map((service) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: service.name,
+            description: service.description,
+            provider: { "@id": organizationId },
+          },
+        })),
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      url: siteConfig.url,
+      name: siteConfig.name,
+      description: homeDescription,
+      inLanguage: siteConfig.language,
+      publisher: { "@id": organizationId },
+    },
+    {
+      "@type": "WebPage",
+      "@id": webpageId,
+      url: siteConfig.url,
+      name: `${homeTitle} | ${siteConfig.name}`,
+      description: homeDescription,
+      inLanguage: siteConfig.language,
+      isPartOf: { "@id": websiteId },
+      about: { "@id": organizationId },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: absoluteUrl(siteConfig.ogImage),
+        width: 1200,
+        height: 630,
+      },
+    },
+  ],
+};
+
 export default function HomePage() {
   return (
     <main id="top" className="overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeStructuredData).replace(/</g, "\\u003c"),
+        }}
+      />
       <header className="relative z-50 border-b border-foreground/10 bg-background/90 backdrop-blur-xl">
         <div className="mx-auto flex h-[76px] max-w-[1440px] items-center gap-6 px-5 sm:px-8 lg:px-12">
           <SiteLogo className="[&>span:last-child>span:last-child]:hidden sm:[&>span:last-child>span:last-child]:block" />

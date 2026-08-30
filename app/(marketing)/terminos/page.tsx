@@ -5,9 +5,36 @@ import Link from "next/link";
 import { SiteLogo } from "@/components/site-logo";
 import { siteConfig } from "@/lib/site-config";
 
+const termsDescription = `Condiciones de uso y contratación de ${siteConfig.name}.`;
+
 export const metadata: Metadata = {
   title: "Términos y condiciones",
-  description: `Condiciones de uso y contratación de ${siteConfig.name}.`,
+  description: termsDescription,
+  alternates: {
+    canonical: "/terminos",
+  },
+  openGraph: {
+    title: `Términos y condiciones | ${siteConfig.name}`,
+    description: termsDescription,
+    url: "/terminos",
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.ogImageAlt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Términos y condiciones | ${siteConfig.name}`,
+    description: termsDescription,
+    images: [{ url: siteConfig.ogImage, alt: siteConfig.ogImageAlt }],
+  },
 };
 
 const sections = [

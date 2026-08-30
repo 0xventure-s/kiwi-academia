@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
+
 import { Navbar } from "./_components/navbar";
 import { Sidebar } from "./_components/sidebar";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+};
 
 const DashboardLayout = ({
   children

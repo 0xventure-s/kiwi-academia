@@ -11,12 +11,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   return [
-    { url: siteUrl, lastModified: new Date(), priority: 1 },
-    { url: `${siteUrl}/cursos`, lastModified: new Date(), priority: 0.9 },
-    { url: `${siteUrl}/terminos`, lastModified: new Date(), priority: 0.4 },
+    {
+      url: siteUrl,
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: `${siteUrl}/cursos`,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/terminos`,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
     ...courses.map((course) => ({
       url: `${siteUrl}/cursos/${course.id}`,
       lastModified: course.updatedAt,
+      changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
   ];

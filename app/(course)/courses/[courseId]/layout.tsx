@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
@@ -6,6 +7,14 @@ import { CourseSidebar } from "./_components/course-sidebar";
 import { CourseNavbar } from "./_components/course-navbar";
 import { isAdmin } from "@/lib/admin";
 import { getCurrentUser } from "@/lib/session";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+};
 
 const CourseLayout = async ({
   children,

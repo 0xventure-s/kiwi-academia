@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import { AlertCircle, CheckCircle2, Clock3 } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { getCurrentUserId } from "@/lib/session";
+
+export const metadata: Metadata = {
+  title: "Estado del pago",
+  description: "Estado de la acreditación de una compra en Kiwi Hub.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+};
 
 export default async function PaymentResultPage({
   searchParams,

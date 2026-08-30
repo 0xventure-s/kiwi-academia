@@ -3,10 +3,39 @@ import { unstable_cache } from "next/cache";
 
 import { CourseTile } from "@/components/marketing/course-tile";
 import { db } from "@/lib/db";
+import { siteConfig } from "@/lib/site-config";
+
+const coursesDescription =
+  "Cursos de inteligencia artificial aplicada para construir productos y automatizaciones con proyectos concretos.";
 
 export const metadata: Metadata = {
   title: "Cursos",
-  description: "Cursos de IA aplicados a la construcción de productos.",
+  description: coursesDescription,
+  alternates: {
+    canonical: "/cursos",
+  },
+  openGraph: {
+    title: `Cursos | ${siteConfig.name}`,
+    description: coursesDescription,
+    url: "/cursos",
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.ogImageAlt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Cursos | ${siteConfig.name}`,
+    description: coursesDescription,
+    images: [{ url: siteConfig.ogImage, alt: siteConfig.ogImageAlt }],
+  },
 };
 
 const getPublicCourses = unstable_cache(

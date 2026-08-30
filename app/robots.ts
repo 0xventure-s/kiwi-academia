@@ -6,11 +6,29 @@ export default function robots(): MetadataRoute.Robots {
   const siteUrl = siteConfig.url.replace(/\/$/, "");
 
   return {
-    rules: {
-      userAgent: "*",
-      allow: ["/", "/cursos"],
-      disallow: ["/admin", "/dashboard", "/courses", "/api"],
-    },
+    rules: [
+      {
+        userAgent: "*",
+        allow: ["/", "/cursos", "/terminos"],
+        disallow: [
+          "/admin",
+          "/api",
+          "/courses",
+          "/dashboard",
+          "/mis-cursos",
+          "/pagos",
+          "/perfil",
+          "/ranking",
+          "/recuperar-acceso",
+          "/restablecer-clave",
+          "/search",
+          "/sign-in",
+          "/sign-up",
+          "/teacher",
+        ],
+      },
+    ],
     sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }

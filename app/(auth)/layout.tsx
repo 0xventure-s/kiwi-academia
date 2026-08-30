@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
+
 import { SiteLogo } from "@/components/site-logo";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+};
 
 const AuthLayout = ({
   children,

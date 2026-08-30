@@ -7,7 +7,7 @@ El archivo `.env` incluido en el proyecto contiene la configuración de Kiwi Hub
 ```env
 NEXT_PUBLIC_APP_URL=""
 NEXT_PUBLIC_SITE_NAME="Kiwi Hub"
-NEXT_PUBLIC_SITE_DESCRIPTION="Sistemas e inteligencia artificial para pymes y empresas."
+NEXT_PUBLIC_SITE_DESCRIPTION="Transformación digital para pymes y empresas con sistemas de turnos, comandas y agentes de inteligencia artificial."
 NEXT_PUBLIC_WHATSAPP_NUMBER=""
 NEXT_PUBLIC_WHATSAPP_MESSAGE="Hola, me gustaría contarles sobre mi negocio y ver cómo podrían ayudarme."
 ```

@@ -6,6 +6,7 @@ const publicPathPatterns = [
   /^\/search$/,
   /^\/cursos(?:\/[^/]+)?$/,
   /^\/pagos\/resultado$/,
+  /^\/terminos$/,
   /^\/sign-in(?:\/.*)?$/,
   /^\/sign-up(?:\/.*)?$/,
   /^\/recuperar-acceso$/,
