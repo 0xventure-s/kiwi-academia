@@ -13,7 +13,6 @@ export const WhatsAppButton = ({
 }: WhatsAppButtonProps) => {
   const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "");
   const message =
-    process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE ||
     "Hola. Quiero consultar por un sistema para mi negocio/emprendimiento.";
 
   if (!number) {

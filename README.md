@@ -282,7 +282,6 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NEXT_PUBLIC_SITE_NAME="Kiwi Hub"
 NEXT_PUBLIC_SITE_DESCRIPTION="Transformación digital para pymes y empresas con sistemas de turnos, comandas y agentes de inteligencia artificial."
 NEXT_PUBLIC_WHATSAPP_NUMBER=""
-NEXT_PUBLIC_WHATSAPP_MESSAGE=""
 
 # Base de datos y autenticación
 DATABASE_URL=""

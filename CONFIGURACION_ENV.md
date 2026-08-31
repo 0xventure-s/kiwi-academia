@@ -9,12 +9,10 @@ NEXT_PUBLIC_APP_URL=""
 NEXT_PUBLIC_SITE_NAME="Kiwi Hub"
 NEXT_PUBLIC_SITE_DESCRIPTION="Transformación digital para pymes y empresas con sistemas de turnos, comandas y agentes de inteligencia artificial."
 NEXT_PUBLIC_WHATSAPP_NUMBER=""
-NEXT_PUBLIC_WHATSAPP_MESSAGE="Hola. Quiero consultar por un sistema para mi negocio/emprendimiento."
 ```
 
 - `NEXT_PUBLIC_APP_URL`: dominio canónico, sin barra final.
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`: número completo en formato internacional, solo dígitos. Para Argentina debe incluir `54` y el `9` correspondiente a telefonía móvil.
-- `NEXT_PUBLIC_WHATSAPP_MESSAGE`: mensaje que aparecerá preparado al abrir el chat.
 
 ## Better Auth y correo de acceso
 
@@ -153,7 +151,6 @@ El uso comercial requiere una licencia compatible con el proyecto. Las descargas
 | `NEXT_PUBLIC_SITE_NAME` | Sí | Sí | No |
 | `NEXT_PUBLIC_SITE_DESCRIPTION` | Sí | Sí | No |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Sí | Sí | No |
-| `NEXT_PUBLIC_WHATSAPP_MESSAGE` | Sí | Sí | No |
 | `BETTER_AUTH_URL` | No | Sí | No |
 | `BETTER_AUTH_SECRET` | No | Sí | Sí |
 | `ADMIN_EMAIL` | No | Sí | No, pero es privada |
