@@ -7,12 +7,14 @@ interface SiteLogoProps {
   className?: string;
   href?: string;
   compact?: boolean;
+  lightOnDark?: boolean;
 }
 
 export const SiteLogo = ({
   className,
   href = "/",
   compact = false,
+  lightOnDark = false,
 }: SiteLogoProps) => {
   return (
     <Link
@@ -29,7 +31,7 @@ export const SiteLogo = ({
         className={cn(
           "h-auto object-contain",
           compact ? "w-[150px]" : "w-[220px]",
-          "dark:hidden",
+          lightOnDark ? "hidden" : "site-logo-light",
         )}
       />
       <Image
@@ -40,7 +42,7 @@ export const SiteLogo = ({
         priority
         aria-hidden="true"
         className={cn(
-          "hidden h-auto object-contain dark:block",
+          lightOnDark ? "h-auto object-contain" : "hidden site-logo-dark h-auto object-contain",
           compact ? "w-[150px]" : "w-[220px]",
         )}
       />

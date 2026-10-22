@@ -208,7 +208,7 @@ export default function TermsPage() {
 
       <footer className="bg-foreground text-background">
         <div className="mx-auto flex max-w-[1200px] flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
-          <SiteLogo className="[&_span]:text-background" />
+          <SiteLogo lightOnDark className="[&_span]:text-background" />
           <Link
             href="/"
             className="text-sm font-extrabold text-background/70 transition hover:text-secondary"
