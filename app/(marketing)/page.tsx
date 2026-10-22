@@ -401,7 +401,7 @@ export default function HomePage() {
       <footer className="bg-foreground text-background">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-8 px-5 py-10 sm:px-8 md:flex-row md:items-end md:justify-between lg:px-12">
           <div>
-            <SiteLogo className="[&_span]:text-background" />
+            <SiteLogo lightOnDark className="[&_span]:text-background" />
             <p className="mt-5 max-w-sm text-sm leading-6 text-background/55">
               Sistemas digitales para empresas que quieren trabajar con más claridad.
             </p>

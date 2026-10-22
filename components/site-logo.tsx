@@ -7,39 +7,45 @@ interface SiteLogoProps {
   className?: string;
   href?: string;
   compact?: boolean;
+  lightOnDark?: boolean;
 }
 
 export const SiteLogo = ({
   className,
   href = "/",
   compact = false,
+  lightOnDark = false,
 }: SiteLogoProps) => {
   return (
     <Link
       href={href}
-      className={cn("inline-flex items-center gap-3", className)}
+      className={cn("inline-flex items-center", className)}
       aria-label="Kiwi Hub"
     >
-      <span className="relative block h-12 w-12 shrink-0">
-        <Image
-          src="/thiings/kiwi.png"
-          alt=""
-          width={48}
-          height={48}
-          priority
-          className="h-full w-full object-contain"
-        />
-      </span>
-      {!compact && (
-        <span className="leading-none">
-          <span className="block whitespace-nowrap text-base font-extrabold tracking-[-0.03em]">
-            Kiwi Hub
-          </span>
-          <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-            Sistemas · Inteligencia artificial
-          </span>
-        </span>
-      )}
+      <Image
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/b9136c57-cd17-4939-baab-9e35fe6c5b3b-De28NDuADjDgEhVscrj3SfRsOjGcj4.png"
+        alt="Kiwi Hub"
+        width={compact ? 150 : 220}
+        height={compact ? 52 : 72}
+        priority
+        className={cn(
+          "h-auto object-contain",
+          compact ? "w-[150px]" : "w-[220px]",
+          lightOnDark ? "hidden" : "site-logo-light",
+        )}
+      />
+      <Image
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/f783116f-646e-4291-804c-82a4584acc28-IhJfKRUgyoEhgpWD8vpX2kRqLD6Gg4.png"
+        alt=""
+        width={compact ? 150 : 220}
+        height={compact ? 52 : 72}
+        priority
+        aria-hidden="true"
+        className={cn(
+          lightOnDark ? "h-auto object-contain" : "hidden site-logo-dark h-auto object-contain",
+          compact ? "w-[150px]" : "w-[220px]",
+        )}
+      />
     </Link>
   );
 };
