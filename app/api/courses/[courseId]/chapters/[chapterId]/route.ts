@@ -16,10 +16,16 @@ const updateChapterSchema = z.object({
   isTrailer: z.boolean().optional(),
 }).strict();
 
-const { Video } = new Mux(
-  process.env.MUX_TOKEN_ID!,
-  process.env.MUX_TOKEN_SECRET!,
-);
+function getMuxVideo() {
+  const tokenId = process.env.MUX_TOKEN_ID;
+  const tokenSecret = process.env.MUX_TOKEN_SECRET;
+
+  if (!tokenId || !tokenSecret) {
+    throw new Error("MUX_TOKEN_ID and MUX_TOKEN_SECRET are required for video operations");
+  }
+
+  return new Mux(tokenId, tokenSecret).Video;
+}
 
 export async function DELETE(
   req: Request,
@@ -64,7 +70,7 @@ export async function DELETE(
       });
 
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
+        await getMuxVideo().Assets.del(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -173,7 +179,7 @@ export async function PATCH(
       });
 
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
+        await getMuxVideo().Assets.del(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -181,7 +187,7 @@ export async function PATCH(
         });
       }
 
-      const asset = await Video.Assets.create({
+      const asset = await getMuxVideo().Assets.create({
         input: values.videoUrl,
         playback_policy: "public",
         test: false,

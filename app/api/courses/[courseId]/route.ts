@@ -24,10 +24,16 @@ const updateCourseSchema = z.object({
   projectImageUrl: z.string().min(1).nullable().optional(),
 }).strict();
 
-const { Video } = new Mux(
-  process.env.MUX_TOKEN_ID!,
-  process.env.MUX_TOKEN_SECRET!,
-);
+function getMuxVideo() {
+  const tokenId = process.env.MUX_TOKEN_ID;
+  const tokenSecret = process.env.MUX_TOKEN_SECRET;
+
+  if (!tokenId || !tokenSecret) {
+    throw new Error("MUX_TOKEN_ID and MUX_TOKEN_SECRET are required for video operations");
+  }
+
+  return new Mux(tokenId, tokenSecret).Video;
+}
 
 export async function DELETE(
   req: Request,
@@ -64,7 +70,7 @@ export async function DELETE(
       course.chapters
         .map((chapter) => chapter.muxData?.assetId)
         .filter((assetId): assetId is string => Boolean(assetId))
-        .map((assetId) => Video.Assets.del(assetId)),
+        .map((assetId) => getMuxVideo().Assets.del(assetId)),
     );
 
     const deletedCourse = await db.course.delete({
